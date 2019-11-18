@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<estudi adreca="C/Estudi, 1" codi="1" nom="Estudi1">
+   <torn codi="M01" horaAcabament="17:00" horaInici="08:00" nom="Matí"/>
+   <dissenyador actiu="1" nif="00000000A" nom="Pep Mesquida"/>
+   <jardiner actiu="1" nif="11111111B" nom="Paula Sastre">
+      <torn codi="M01" horaAcabament="17:00" horaInici="08:00" nom="Matí"/>
+   </jardiner>
+   <jardiner actiu="1" nif="22222222C" nom="Víctor Canals">
+      <torn codi="M01" horaAcabament="17:00" horaInici="08:00" nom="Matí"/>
+   </jardiner>
+   <projecte codi="1" finalitzat="0" nifClient="55555555V" pressupost="1771.0">
+      <jardiner actiu="1" nif="11111111B" nom="Paula Sastre">
+         <torn codi="M01" horaAcabament="17:00" horaInici="08:00" nom="Matí"/>
+      </jardiner>
+      <jardiner actiu="1" nif="22222222C" nom="Víctor Canals">
+         <torn codi="M01" horaAcabament="17:00" horaInici="08:00" nom="Matí"/>
+      </jardiner>
+      <dissenyador actiu="1" nif="00000000A" nom="Pep Mesquida"/>
+   </projecte>
+</estudi>
