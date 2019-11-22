@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Container;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +42,35 @@ public class EstudiForm {
             Heu de fer que la finestra es tanqui quan l'usuari ho fa amb el control "X" de la finestra
        
         */
+        this.frame = new JFrame("Formulari Estudi");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(AMPLADA,ALCADA);
+        
+        GridLayout posicions = new GridLayout(8,1);
+        
+        this.lCodi = new JLabel("Codi");
+        this.tCodi = new JTextField();
+        this.lNom = new JLabel("Nom");
+        this.tNom = new JTextField();
+        this.lAdreca = new JLabel("Adreça");
+        this.tAdreca = new JTextField();
+        
+        this.bDesar = new JButton("Desar");
+        this.bSortir = new JButton("Sortir");
+        
+        Container contingut = frame.getContentPane();
+        
+        contingut.add(lCodi);
+        contingut.add(tCodi);
+        contingut.add(lNom);
+        contingut.add(tNom);
+        contingut.add(lAdreca);
+        contingut.add(tAdreca);
+        contingut.add(bDesar);
+        contingut.add(bSortir);
+        
+        contingut.setLayout(posicions);
+        frame.setVisible(true);
         
     }
     
