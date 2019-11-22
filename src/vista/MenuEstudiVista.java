@@ -54,16 +54,13 @@ public class MenuEstudiVista {
         menuButtons[6]  = new JButton("6. Desar Estudi");
         
         Container contingut = frame.getContentPane();
+        contingut.setLayout(posicions);
         
         for (int i=0 ; i< menuButtons.length; i++){
             contingut.add(menuButtons[i]);
         }
-        
-        
-        contingut.setLayout(posicions);
-        
-        frame.setVisible(true);
-       
+      
+        frame.setVisible(true); 
     }
 
     public JFrame getFrame() {

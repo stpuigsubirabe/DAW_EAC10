@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Container;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -34,6 +36,24 @@ public class EstudiLlista {
             Heu de fer que la finestra es tanqui quan l'usuari ho fa amb el control "X" de la finestra
         
         */ 
+        this.frame = new JFrame ("Llista Estudis");
+        frame.setSize(AMPLADA, ALCADA);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        GridLayout posicions = new GridLayout(2,1);
+        
+        EstudiTableModel model = new EstudiTableModel();
+        JTable taula = new JTable(model);
+        
+        JButton sortir = new JButton("Sortir");
+        
+        Container contingut = frame.getContentPane();
+        contingut.setLayout(posicions);
+        
+        contingut.add(taula);
+        contingut.add(sortir);
+        
+        frame.setVisible(true);
              
     }
 
