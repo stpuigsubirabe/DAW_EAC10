@@ -33,19 +33,13 @@ public class ControladorPrincipal implements ActionListener {
         A cada botó del menú, s'afegeix aquest mateix objecte (ControladorPrincipal) com a listener
         
          */
-        
-       
-        
-        menuPrincipalVista = new MenuPrincipalVista();
+                       
+        this.menuPrincipalVista = new MenuPrincipalVista();
         JButton[] menuButtons = menuPrincipalVista.getMenuButtons();
-       /*
-        ActionListener controladorPrincipal = this.ControladorPrincipal();
-        
+       
         for(int i=0; i<menuButtons.length; i++){
-            menuButtons[i].addActionListener(controladorPrincipal);
-        
+            menuButtons[i].addActionListener(this);
         } 
-        */
     }
 
     @Override
@@ -57,7 +51,30 @@ public class ControladorPrincipal implements ActionListener {
         correspon amb la posició que el botó ocupa a l'array de botons de menuPrincipalVista
         
          */
-
+        // Veiem quin element a llançat el event:
+        JButton boto = (JButton) e.getSource();
+        
+        //Anem a veure quina posicio ocupa a l'array de botons de menuPrincipalVista
+        
+        JButton[] menuButtons = menuPrincipalVista.getMenuButtons();
+        int opcio = 0;
+        for(int i=0; i<menuButtons.length; i++){
+            if (menuButtons[i].equals(boto)){
+                opcio = i;
+                break;
+            }    
+        }
+        switch (opcio){
+            case 0:
+                bifurcaOpcio(0);
+            break;
+            case 1:
+                bifurcaOpcio(1);
+            break;
+            case 2:
+                bifurcaOpcio(2);
+            break;
+        }
     }
 
     private void bifurcaOpcio(int opcio) {
