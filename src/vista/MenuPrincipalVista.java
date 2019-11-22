@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Container;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -33,6 +35,28 @@ public class MenuPrincipalVista {
             Heu de fer que la finestra es tanqui quan l'usuari ho fa amb el control "X" de la finestra
         
         */ 
+        this.frame = new JFrame ("Menu Principal");
+        frame.setSize(AMPLADA, ALCADA);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        GridLayout posicions = new GridLayout(3,1);
+        
+        menuButtons[0]  = new JButton("0. Sortir"); 
+        menuButtons[1]  = new JButton("1. Gestió d'estudis"); 
+        menuButtons[2]  = new JButton("2. Menú Dissenyador");
+        
+        Container contingut = frame.getContentPane();
+        
+        for (int i=0 ; i< menuButtons.length; i++){
+            contingut.add(menuButtons[i]);
+        }
+        
+        contingut.setLayout(posicions);
+        
+        frame.setVisible(true);
+        
+        
   
     }
 

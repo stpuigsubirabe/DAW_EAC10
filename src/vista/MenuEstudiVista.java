@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Container;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -36,6 +38,31 @@ public class MenuEstudiVista {
             Heu de fer que la finestra es tanqui quan l'usuari ho fa amb el control "X" de la finestra
         
          */
+        this.frame = new JFrame ("Menú Estudi");
+        frame.setSize(AMPLADA, ALCADA);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        GridLayout posicions = new GridLayout(7,1);
+        
+        menuButtons[0]  = new JButton("0. Sortir"); 
+        menuButtons[1]  = new JButton("1. Gestió d'estudis"); 
+        menuButtons[2]  = new JButton("2. Alta Estudi");
+        menuButtons[3]  = new JButton("3. Seleccionar Estudi");
+        menuButtons[4]  = new JButton("4. LListar Estudis");
+        menuButtons[5]  = new JButton("5. Carregar Estudi");
+        menuButtons[6]  = new JButton("6. Desar Estudi");
+        
+        Container contingut = frame.getContentPane();
+        
+        for (int i=0 ; i< menuButtons.length; i++){
+            contingut.add(menuButtons[i]);
+        }
+        
+        
+        contingut.setLayout(posicions);
+        
+        frame.setVisible(true);
        
     }
 

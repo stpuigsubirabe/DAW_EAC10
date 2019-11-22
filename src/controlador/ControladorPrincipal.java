@@ -1,7 +1,9 @@
+
 package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Estudi;
 import persistencia.GestorPersistencia;
@@ -31,7 +33,19 @@ public class ControladorPrincipal implements ActionListener {
         A cada botó del menú, s'afegeix aquest mateix objecte (ControladorPrincipal) com a listener
         
          */
-
+        
+       
+        
+        menuPrincipalVista = new MenuPrincipalVista();
+        JButton[] menuButtons = menuPrincipalVista.getMenuButtons();
+       /*
+        ActionListener controladorPrincipal = this.ControladorPrincipal();
+        
+        for(int i=0; i<menuButtons.length; i++){
+            menuButtons[i].addActionListener(controladorPrincipal);
+        
+        } 
+        */
     }
 
     @Override
