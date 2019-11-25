@@ -7,6 +7,9 @@ import model.Estudi;
 import vista.EstudiForm;
 import vista.EstudiLlista;
 import vista.MenuEstudiVista;
+import javax.swing.JButton;
+import persistencia.GestorPersistencia;
+import principal.GestorEstudisException;
 
 /**
  *
@@ -28,6 +31,8 @@ public class ControladorEstudi implements ActionListener {
         Es crida a afegirListenersMenu
         
          */
+        this.menuEstudiVista = new MenuEstudiVista();
+        afegirListenersMenu();
 
     }
 
@@ -40,6 +45,11 @@ public class ControladorEstudi implements ActionListener {
         A cada botó del menú estudis, s'afegeix aquest mateix objecte (ControladorEstudi) com a listener
         
          */
+        JButton[] botonsMenuEstudi =  menuEstudiVista.getMenuButtons();
+        
+        for(int i=0; i<botonsMenuEstudi.length; i++){
+            botonsMenuEstudi[i].addActionListener(this);
+        }
 
     }
 
@@ -51,6 +61,11 @@ public class ControladorEstudi implements ActionListener {
         A cada botó del formulari de l'estudi, s'afegeix aquest mateix objecte (ControladorEstudi) com a listener
         
          */
+        JButton desarEstudi = estudiForm.getbDesar();
+        JButton sortirEstudi = estudiForm.getbSortir();
+        desarEstudi.addActionListener(this);
+        sortirEstudi.addActionListener(this);
+                
  
     }
 
@@ -61,7 +76,9 @@ public class ControladorEstudi implements ActionListener {
         
         Al botó de sortir de la llista d'estudis, s'afegeix aquest mateix objecte (ControladorEstudi) com a listener
         */
-
+        JButton sortirLlista = estudiLlista.getbSortir();
+        sortirLlista.addActionListener(this);
+        
     }
 
     @Override
@@ -107,7 +124,47 @@ public class ControladorEstudi implements ActionListener {
          */
         
         
+        if(estudiForm != null){
+            if( estudiForm.getbDesar() == (JButton) e.getSource()){
+                if (opcioSelec == 1){
+                   
+                    String nom = (estudiForm.gettNom()).getText();
+                    String adreca = (estudiForm.gettAdreca()).getText();
+                    Estudi nouEstudi = new Estudi(nom,adreca);
+                    ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()]= nouEstudi;
+                    ControladorPrincipal.setEstudiActual(nouEstudi);
+                    opcioSelec = 2;
+                }
+                if (opcioSelec == 3){
+                    String nom = (estudiForm.gettNom()).getText();
+                    String adreca = (estudiForm.gettAdreca()).getText();
+                    ControladorPrincipal.getEstudiActual().setNom(nom);
+                    ControladorPrincipal.getEstudiActual().setAdreca(adreca);  
+                }
+                
+            }else if (estudiForm.getbSortir() == (JButton) e.getSource()){
+                menuEstudiVista.getFrame().setVisible(true);
+                estudiForm.getFrame().setVisible(false);
+                
+            }
+        }else if(estudiLlista !=null){
+            if( estudiForm.getbSortir() == (JButton) e.getSource()){
+            ControladorPrincipal.getMenuPrincipalVista().getFrame().setVisible(true);
+            estudiLlista.getFrame().setVisible(false);
+            }
+        }else{
+            JButton[] menuButtons = menuEstudiVista.getMenuButtons();
 
+            for(int i=0; i<menuButtons.length; i++){
+                if (menuButtons[i].equals((JButton) e.getSource())){
+                    opcioSelec = i;
+                    break;
+                }    
+        }
+
+        bifurcaOpcio(opcioSelec);
+
+        }
     }
 
     private void bifurcaOpcio(Integer opcio) {
@@ -182,7 +239,62 @@ public class ControladorEstudi implements ActionListener {
                     Es mostra un missatge confirmant l'addició (JOptionPane.showMessageDialog)
             
             */
+                Integer seleccio = JOptionPane.showOptionDialog(
+                        menuEstudiVista.getFrame(),
+                        "Selecciona un mètode",
+                        "Carregar Estudi",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        ControladorPrincipal.getMETODESPERSISTENCIA(),
+                        "XML");  
                 
+                String nomEstudi = JOptionPane.showInputDialog(
+                            menuEstudiVista.getFrame(),
+                            "Quin és el coci de l'estudi que vols carregar ?" ,
+                            "Entrada",
+                            JOptionPane.QUESTION_MESSAGE); 
+                
+                    //seleccio 0 "XML" seleccio 1 "Serial"        
+                if (nomEstudi != null){
+                    if(seleccio == 0){ 
+                        try{
+                        ControladorPrincipal.getGp().carregarEstudi("XML", nomEstudi);
+                        }catch(Exception e){System.out.println("No s'ha pogut carregar l'estudi a causa d'error d'entrada/sortida");}
+                    }else if(seleccio == 1){
+                        try{
+                        ControladorPrincipal.getGp().carregarEstudi("Serial", nomEstudi);
+                        }catch(Exception e){System.out.println("No s'ha pogut carregar l'estudi a causa d'error d'entrada/sortida");}
+                    }
+                }
+                // Capturem el estudi creat
+                Estudi nouEstudi = ControladorPrincipal.getEstudiActual();
+                int codiEstudi = nouEstudi.getCodi();
+                
+                // Comprovem si aquest estudi es troba al vector estudis.
+                int posEstudis = comprovarEstudi(codiEstudi);
+                
+                if (posEstudis != -1){
+                    seleccio = JOptionPane.showOptionDialog(
+                        menuEstudiVista.getFrame(),
+                        "Premeu OK per substituir-lo",
+                        "Estudi ja existent",
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        new String [] {"OK", "Cancel·lar"},
+                        "ok");
+                    if (seleccio == 0){
+                        ControladorPrincipal.getEstudis()[posEstudis] = nouEstudi ;
+                    }
+                }else{
+                   ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()] = nouEstudi;  
+                   JOptionPane.showMessageDialog(
+                           menuEstudiVista.getFrame(),
+                           "S'ha afegit el nou Estudi",
+                           "Missatge",
+                           JOptionPane.INFORMATION_MESSAGE);
+                }
                 
                 break;
 
@@ -196,7 +308,39 @@ public class ControladorEstudi implements ActionListener {
                     (propietat a Controlador Principal: ara XML i Serial)
                     Un cop escollit el mètode, es desa l'estudi cridant a desarEstudi del gestor de persistència
                  */
+                if (ControladorPrincipal.getEstudiActual()!= null){
+                    seleccio = JOptionPane.showOptionDialog(
+                        menuEstudiVista.getFrame(),
+                        "Selecciona un mètode",
+                        "Desar Estudi",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        ControladorPrincipal.getMETODESPERSISTENCIA(),
+                        "XML");
+                    if (seleccio == 0){
+                        Estudi estudiGuardar = ControladorPrincipal.getEstudiActual();
+                        String nomArxiu = String.valueOf(estudiGuardar.getCodi()) +"XML"; 
+                        try{
+                        ControladorPrincipal.getGp().desarEstudi("XML", nomArxiu, estudiGuardar);
+                        }catch(Exception e){}
+                    }else if (seleccio == 1){
+                        Estudi estudiGuardar = ControladorPrincipal.getEstudiActual();
+                        String nomArxiu = String.valueOf(estudiGuardar.getCodi()) +"Serial"; 
+                        try{
+                        ControladorPrincipal.getGp().desarEstudi("Serial", nomArxiu, estudiGuardar);
+                        }catch(Exception e){}
+                    }
+                    
+                    
                 
+                }else{
+                    JOptionPane.showMessageDialog(
+                            menuEstudiVista.getFrame(),
+                            "Primer has de seleccionar un estudi",
+                            "Missatge Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
                 break;
 

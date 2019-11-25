@@ -51,7 +51,7 @@ public class ControladorPrincipal implements ActionListener {
         correspon amb la posició que el botó ocupa a l'array de botons de menuPrincipalVista
         
          */
-        // Veiem quin element a llançat el event:
+        // Veiem quin element a llançat el esdeveniment:
         JButton boto = (JButton) e.getSource();
         
         //Anem a veure quina posicio ocupa a l'array de botons de menuPrincipalVista
