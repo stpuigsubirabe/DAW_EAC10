@@ -43,15 +43,15 @@ public class EstudiLlista {
         GridLayout posicions = new GridLayout(2,1);
         
         EstudiTableModel model = new EstudiTableModel();
-        JTable taula = new JTable(model);
+        this.tEstudi = new JTable(model);
         
-        JButton sortir = new JButton("Sortir");
+        this.bSortir = new JButton("Sortir");
         
         Container contingut = frame.getContentPane();
         contingut.setLayout(posicions);
         
-        contingut.add(taula);
-        contingut.add(sortir);
+        contingut.add(tEstudi);
+        contingut.add(bSortir);
         
         frame.setVisible(true);
              

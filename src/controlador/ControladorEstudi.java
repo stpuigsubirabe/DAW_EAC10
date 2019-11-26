@@ -123,49 +123,77 @@ public class ControladorEstudi implements ActionListener {
          
          */
         
-        
-        if(estudiForm != null){
-            if( estudiForm.getbDesar() == (JButton) e.getSource()){
-                if (opcioSelec == 1){
-                   
-                    String nom = (estudiForm.gettNom()).getText();
-                    String adreca = (estudiForm.gettAdreca()).getText();
-                    Estudi nouEstudi = new Estudi(nom,adreca);
-                    ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()]= nouEstudi;
-                    ControladorPrincipal.setEstudiActual(nouEstudi);
-                    opcioSelec = 2;
-                }
-                if (opcioSelec == 3){
-                    String nom = (estudiForm.gettNom()).getText();
-                    String adreca = (estudiForm.gettAdreca()).getText();
-                    ControladorPrincipal.getEstudiActual().setNom(nom);
-                    ControladorPrincipal.getEstudiActual().setAdreca(adreca);  
-                }
-                
-            }else if (estudiForm.getbSortir() == (JButton) e.getSource()){
-                menuEstudiVista.getFrame().setVisible(true);
-                estudiForm.getFrame().setVisible(false);
-                
-            }
-        }else if(estudiLlista !=null){
-            if( estudiForm.getbSortir() == (JButton) e.getSource()){
-            ControladorPrincipal.getMenuPrincipalVista().getFrame().setVisible(true);
-            estudiLlista.getFrame().setVisible(false);
-            }
-        }else{
-            JButton[] menuButtons = menuEstudiVista.getMenuButtons();
+        JButton[] menuButtons = menuEstudiVista.getMenuButtons();
 
             for(int i=0; i<menuButtons.length; i++){
-                if (menuButtons[i].equals((JButton) e.getSource())){
-                    opcioSelec = i;
-                    break;
-                }    
-        }
-
-        bifurcaOpcio(opcioSelec);
-
+                    if (menuButtons[i].equals((JButton) e.getSource())){
+                        opcioSelec = i;
+                        break;
+                    }    
+                }
+            
+         switch (opcioSelec){
+        
+            case 0:
+                 bifurcaOpcio(opcioSelec);
+                break;
+            case 1:
+                if (estudiForm == null){bifurcaOpcio(opcioSelec);}
+                else{
+                    estudiForm.getFrame().setVisible(true);
+                    if(estudiForm.getbDesar()==e.getSource()){
+                        String nom = (estudiForm.gettNom()).getText();
+                        String adreca = (estudiForm.gettAdreca()).getText();
+                        Estudi nouEstudi = new Estudi(nom,adreca);
+                        ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()]= nouEstudi;
+                        ControladorPrincipal.setPosicioEstudis();
+                        ControladorPrincipal.setEstudiActual(nouEstudi);
+                        //opcioSelec = 2;
+                    }
+                    if(estudiForm.getbSortir()== e.getSource()){
+                        menuEstudiVista.getFrame().setVisible(true);
+                        estudiForm.getFrame().setVisible(false);
+                    }
+                }
+                break;    
+            case 2:
+                 bifurcaOpcio(opcioSelec);
+                break;
+            case 3:
+                if (estudiForm == null){bifurcaOpcio(opcioSelec);}
+                else{
+                    estudiForm.getFrame().setVisible(true);
+                    if(estudiForm.getbDesar()==e.getSource()){
+                        String nom = (estudiForm.gettNom()).getText();
+                        String adreca = (estudiForm.gettAdreca()).getText();
+                        ControladorPrincipal.getEstudiActual().setNom(nom);
+                        ControladorPrincipal.getEstudiActual().setAdreca(adreca);
+                    }
+                    if(estudiForm.getbSortir()== e.getSource()){
+                        menuEstudiVista.getFrame().setVisible(true);
+                        estudiForm.getFrame().setVisible(false);
+                    }
+                }
+                break;
+            case 4:
+                if (estudiLlista == null){bifurcaOpcio(opcioSelec);}
+                else{
+                    estudiLlista.getFrame().setVisible(true);
+                    if(estudiLlista.getbSortir()== e.getSource()){
+                        estudiLlista.getFrame().setVisible(false);
+                        menuEstudiVista.getFrame().setVisible(true);
+                    }    
+                }
+                break;    
+            case 5:
+                 bifurcaOpcio(opcioSelec);
+                break;
+            case 6:
+                 bifurcaOpcio(opcioSelec);
+                break;
         }
     }
+    
 
     private void bifurcaOpcio(Integer opcio) {
 

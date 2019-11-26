@@ -46,9 +46,9 @@ public class MenuEstudiVista {
         GridLayout posicions = new GridLayout(7,1);
         
         menuButtons[0]  = new JButton("0. Sortir"); 
-        menuButtons[1]  = new JButton("1. Gestió d'estudis"); 
-        menuButtons[2]  = new JButton("2. Alta Estudi");
-        menuButtons[3]  = new JButton("3. Seleccionar Estudi");
+        menuButtons[1]  = new JButton("1. Alta Estudi"); 
+        menuButtons[2]  = new JButton("2. Seleccionar Estudi");
+        menuButtons[3]  = new JButton("3. Modificar Estudi");
         menuButtons[4]  = new JButton("4. LListar Estudis");
         menuButtons[5]  = new JButton("5. Carregar Estudi");
         menuButtons[6]  = new JButton("6. Desar Estudi");
