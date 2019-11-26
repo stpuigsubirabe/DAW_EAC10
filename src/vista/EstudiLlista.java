@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -46,7 +47,6 @@ public class EstudiLlista {
         this.tEstudi = new JTable(model);
         
         this.bSortir = new JButton("Sortir");
-        
         Container contingut = frame.getContentPane();
         contingut.setLayout(posicions);
         

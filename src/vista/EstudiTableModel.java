@@ -15,7 +15,9 @@ public class EstudiTableModel extends AbstractTableModel{
     String[][] data = new String[ControladorPrincipal.getMAXESTUDIS()][3];
 
     public EstudiTableModel() {
+           
         int i = 0;
+        
         for (Estudi estudi : ControladorPrincipal.getEstudis()) {
             if (estudi != null) {
                 data[i][0] = String.valueOf(estudi.getCodi());
