@@ -9,8 +9,9 @@ import vista.EstudiLlista;
 import vista.MenuEstudiVista;
 import javax.swing.JButton;
 import persistencia.GestorPersistencia;
+import persistencia.GestorXML;
 import principal.GestorEstudisException;
-
+import persistencia.ProveedorPersistencia;
 /**
  *
  * @author FTA
@@ -277,30 +278,34 @@ public class ControladorEstudi implements ActionListener {
                         ControladorPrincipal.getMETODESPERSISTENCIA(),
                         "XML");  
                 
-                String nomEstudi = JOptionPane.showInputDialog(
+                String codiEstudi = JOptionPane.showInputDialog(
                             menuEstudiVista.getFrame(),
-                            "Quin és el coci de l'estudi que vols carregar ?" ,
+                            "Quin és el codi de l'estudi que vols carregar ?" ,
                             "Entrada",
                             JOptionPane.QUESTION_MESSAGE); 
                 
-                    //seleccio 0 "XML" seleccio 1 "Serial"        
-                if (nomEstudi != null){
+                    //seleccio 0 "XML" seleccio 1 "Serial"
+                Estudi nouEstudi = new Estudi(null,null);
+                
+                if (codiEstudi != null){
                     if(seleccio == 0){ 
                         try{
-                        ControladorPrincipal.getGp().carregarEstudi("XML", nomEstudi);
+                            ControladorPrincipal.getGp().carregarEstudi("XML", codiEstudi);
+                            GestorXML gxml = (GestorXML) ControladorPrincipal.getGp().getGestor();
+                            nouEstudi = gxml.getEstudi();
                         }catch(Exception e){System.out.println("No s'ha pogut carregar l'estudi a causa d'error d'entrada/sortida");}
                     }else if(seleccio == 1){
                         try{
-                        ControladorPrincipal.getGp().carregarEstudi("Serial", nomEstudi);
+                        ControladorPrincipal.getGp().carregarEstudi("Serial", codiEstudi);
                         }catch(Exception e){System.out.println("No s'ha pogut carregar l'estudi a causa d'error d'entrada/sortida");}
                     }
                 }
-                // Capturem el estudi creat
-                Estudi nouEstudi = ControladorPrincipal.getEstudiActual();
-                int codiEstudi = nouEstudi.getCodi();
+                
+                ControladorPrincipal.setEstudiActual(nouEstudi);
+                int codEstudi = nouEstudi.getCodi();
                 
                 // Comprovem si aquest estudi es troba al vector estudis.
-                int posEstudis = comprovarEstudi(codiEstudi);
+                int posEstudis = comprovarEstudi(codEstudi);
                 
                 if (posEstudis != -1){
                     seleccio = JOptionPane.showOptionDialog(
@@ -311,7 +316,7 @@ public class ControladorEstudi implements ActionListener {
                         JOptionPane.WARNING_MESSAGE,
                         null,
                         new String [] {"OK", "Cancel·lar"},
-                        "ok");
+                        "OK");
                     if (seleccio == 0){
                         ControladorPrincipal.getEstudis()[posEstudis] = nouEstudi ;
                     }
