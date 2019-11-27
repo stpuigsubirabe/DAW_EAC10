@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.table.TableColumn;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -44,13 +44,24 @@ public class EstudiLlista {
         GridLayout posicions = new GridLayout(2,1);
         
         EstudiTableModel model = new EstudiTableModel();
-        this.tEstudi = new JTable(model);
         
+        //Taula amb capçaleres
+        
+        int numColumnes = model.getColumnCount();
+        String [] nomColumnes = new String[numColumnes];
+        
+        for (int i=0; i<numColumnes; i++){
+            nomColumnes[i] = model.getColumnName(i);
+        }
+        
+        this.tEstudi = new JTable(model.data, nomColumnes);
+        JScrollPane scPane = new JScrollPane(tEstudi);
         this.bSortir = new JButton("Sortir");
+        
         Container contingut = frame.getContentPane();
         contingut.setLayout(posicions);
         
-        contingut.add(tEstudi);
+        contingut.add(scPane);
         contingut.add(bSortir);
         
         frame.setVisible(true);
