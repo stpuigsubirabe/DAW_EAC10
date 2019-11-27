@@ -43,7 +43,7 @@ public class EstudiForm {
        
         */
         this.frame = new JFrame("Formulari Estudi");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(AMPLADA,ALCADA);
         
         GridLayout posicions = new GridLayout(8,1);

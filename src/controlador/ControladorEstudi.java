@@ -353,7 +353,7 @@ public class ControladorEstudi implements ActionListener {
                         "XML");
                     if (seleccio == 0){
                         Estudi estudiGuardar = ControladorPrincipal.getEstudiActual();
-                        String nomArxiu = String.valueOf(estudiGuardar.getCodi()) +"XML"; 
+                        String nomArxiu = String.valueOf(estudiGuardar.getCodi()); 
                         try{
                         ControladorPrincipal.getGp().desarEstudi("XML", nomArxiu, estudiGuardar);
                         }catch(Exception e){}

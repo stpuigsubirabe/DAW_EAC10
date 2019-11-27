@@ -39,7 +39,7 @@ public class EstudiLlista {
         */ 
         this.frame = new JFrame ("Llista Estudis");
         frame.setSize(AMPLADA, ALCADA);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         GridLayout posicions = new GridLayout(2,1);
         
