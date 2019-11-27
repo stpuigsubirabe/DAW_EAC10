@@ -149,11 +149,14 @@ public class ControladorEstudi implements ActionListener {
                         ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()]= nouEstudi;
                         ControladorPrincipal.setPosicioEstudis();
                         ControladorPrincipal.setEstudiActual(nouEstudi);
+                        
                         //opcioSelec = 2;
                     }
                     if(estudiForm.getbSortir()== e.getSource()){
                         menuEstudiVista.getFrame().setVisible(true);
                         estudiForm.getFrame().setVisible(false);
+                       // Al sortir eliminem el formulari estudi,
+                       estudiForm = null;
                     }
                 }
                 break;    
@@ -161,18 +164,23 @@ public class ControladorEstudi implements ActionListener {
                  bifurcaOpcio(opcioSelec);
                 break;
             case 3:
+                
                 if (estudiForm == null){bifurcaOpcio(opcioSelec);}
                 else{
                     estudiForm.getFrame().setVisible(true);
+                
                     if(estudiForm.getbDesar()==e.getSource()){
                         String nom = (estudiForm.gettNom()).getText();
                         String adreca = (estudiForm.gettAdreca()).getText();
                         ControladorPrincipal.getEstudiActual().setNom(nom);
                         ControladorPrincipal.getEstudiActual().setAdreca(adreca);
+                        
                     }
                     if(estudiForm.getbSortir()== e.getSource()){
                         menuEstudiVista.getFrame().setVisible(true);
                         estudiForm.getFrame().setVisible(false);
+                        //Al sortir eliminem el formulari estudi
+                        estudiForm = null;
                     }
                 }
                 break;
@@ -183,8 +191,13 @@ public class ControladorEstudi implements ActionListener {
                     if(estudiLlista.getbSortir()== e.getSource()){
                         estudiLlista.getFrame().setVisible(false);
                         menuEstudiVista.getFrame().setVisible(true);
+                        /* Elimino l' estudiLlista actual per que aixi quan el torni
+                        a cridar em mostrará les dades actualitzades
+                        */
+                        estudiLlista = null;
                     }    
                 }
+                
                 break;    
             case 5:
                  bifurcaOpcio(opcioSelec);
