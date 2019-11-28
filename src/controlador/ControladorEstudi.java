@@ -8,10 +8,11 @@ import vista.EstudiForm;
 import vista.EstudiLlista;
 import vista.MenuEstudiVista;
 import javax.swing.JButton;
-import persistencia.GestorPersistencia;
+//import persistencia.GestorPersistencia;
 import persistencia.GestorXML;
 import principal.GestorEstudisException;
-import persistencia.ProveedorPersistencia;
+//import persistencia.ProveedorPersistencia;
+import persistencia.GestorSerial;
 /**
  *
  * @author FTA
@@ -304,13 +305,15 @@ public class ControladorEstudi implements ActionListener {
                     if(seleccio == 0){ 
                         try{
                             ControladorPrincipal.getGp().carregarEstudi("XML", codiEstudi);
-                            GestorXML gxml = (GestorXML) ControladorPrincipal.getGp().getGestor();
+                            GestorXML gxml = (GestorXML)ControladorPrincipal.getGp().getGestor();
                             nouEstudi = gxml.getEstudi();
-                        }catch(Exception e){System.out.println("No s'ha pogut carregar l'estudi a causa d'error d'entrada/sortida");}
+                        }catch(GestorEstudisException e){System.out.println (e.getMessage());}
                     }else if(seleccio == 1){
                         try{
                         ControladorPrincipal.getGp().carregarEstudi("Serial", codiEstudi);
-                        }catch(Exception e){System.out.println("No s'ha pogut carregar l'estudi a causa d'error d'entrada/sortida");}
+                        GestorSerial gserial = (GestorSerial)ControladorPrincipal.getGp().getGestor();
+                        nouEstudi = gserial.getEstudi();
+                        }catch(GestorEstudisException e){System.out.println (e.getMessage());}
                     }
                 }
                 
@@ -372,7 +375,7 @@ public class ControladorEstudi implements ActionListener {
                         }catch(Exception e){}
                     }else if (seleccio == 1){
                         Estudi estudiGuardar = ControladorPrincipal.getEstudiActual();
-                        String nomArxiu = String.valueOf(estudiGuardar.getCodi()) +"Serial"; 
+                        String nomArxiu = String.valueOf(estudiGuardar.getCodi()); 
                         try{
                         ControladorPrincipal.getGp().desarEstudi("Serial", nomArxiu, estudiGuardar);
                         }catch(Exception e){}

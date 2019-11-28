@@ -1,7 +1,12 @@
 package persistencia;
 
+import java.io.File;
 import principal.GestorEstudisException;
 import model.Estudi;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  *
@@ -36,7 +41,12 @@ public class GestorSerial implements ProveedorPersistencia{
          *
          *Retorn: cap
          */
-   
+        try{
+            File f = new File(nomFitxer + ".ser");
+            ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(f));
+            oos.writeObject(estudi);
+            oos.close();
+        }catch(Exception ex){throw new GestorEstudisException("GestorSerial.desar");}
     }
 
     @Override
@@ -54,6 +64,12 @@ public class GestorSerial implements ProveedorPersistencia{
          *
          *Retorn: cap
          */
+        try{
+            File f = new File(nomFitxer + ".ser");
+            ObjectInputStream ois = new ObjectInputStream (new FileInputStream(f));
+            estudi = (Estudi)ois.readObject();
+            ois.close();
+        }catch(Exception ex){throw new GestorEstudisException ("GestorSerial.carrega");}
               
     }
 }
