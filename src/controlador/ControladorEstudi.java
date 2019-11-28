@@ -337,7 +337,8 @@ public class ControladorEstudi implements ActionListener {
                         ControladorPrincipal.getEstudis()[posEstudis] = nouEstudi ;
                     }
                 }else{
-                   ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()] = nouEstudi;  
+                   ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()] = nouEstudi;
+                   ControladorPrincipal.setPosicioEstudis();
                    JOptionPane.showMessageDialog(
                            menuEstudiVista.getFrame(),
                            "S'ha afegit el nou Estudi",
