@@ -140,6 +140,7 @@ public class ControladorEstudi implements ActionListener {
                  bifurcaOpcio(opcioSelec);
                 break;
             case 1:
+                menuEstudiVista.getFrame().setVisible(false);
                 if (estudiForm == null){bifurcaOpcio(opcioSelec);}
                 else{
                     estudiForm.getFrame().setVisible(true);
@@ -165,7 +166,7 @@ public class ControladorEstudi implements ActionListener {
                  bifurcaOpcio(opcioSelec);
                 break;
             case 3:
-                
+                menuEstudiVista.getFrame().setVisible(false);
                 if (estudiForm == null){bifurcaOpcio(opcioSelec);}
                 else{
                     estudiForm.getFrame().setVisible(true);
@@ -186,15 +187,14 @@ public class ControladorEstudi implements ActionListener {
                 }
                 break;
             case 4:
+                menuEstudiVista.getFrame().setVisible(false);
                 if (estudiLlista == null){bifurcaOpcio(opcioSelec);}
                 else{
                     estudiLlista.getFrame().setVisible(true);
                     if(estudiLlista.getbSortir()== e.getSource()){
                         estudiLlista.getFrame().setVisible(false);
                         menuEstudiVista.getFrame().setVisible(true);
-                        /* Elimino l' estudiLlista actual per que aixi quan el torni
-                        a cridar em mostrará les dades actualitzades
-                        */
+                        /* Al sortir s'elimina la llista creada */
                         estudiLlista = null;
                     }    
                 }
@@ -316,36 +316,37 @@ public class ControladorEstudi implements ActionListener {
                         }catch(GestorEstudisException e){System.out.println (e.getMessage());}
                     }
                 }
-                
-                ControladorPrincipal.setEstudiActual(nouEstudi);
-                int codEstudi = nouEstudi.getCodi();
-                
-                // Comprovem si aquest estudi es troba al vector estudis.
-                int posEstudis = comprovarEstudi(codEstudi);
-                
-                if (posEstudis != -1){
-                    seleccio = JOptionPane.showOptionDialog(
-                        menuEstudiVista.getFrame(),
-                        "Premeu OK per substituir-lo",
-                        "Estudi ja existent",
-                        JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.WARNING_MESSAGE,
-                        null,
-                        new String [] {"OK", "Cancel·lar"},
-                        "OK");
-                    if (seleccio == 0){
-                        ControladorPrincipal.getEstudis()[posEstudis] = nouEstudi ;
+                if (nouEstudi.getAdreca() != null){
+                    
+                    ControladorPrincipal.setEstudiActual(nouEstudi);
+                    int codEstudi = nouEstudi.getCodi();
+
+                    // Comprovem si aquest estudi es troba al vector estudis.
+                    int posEstudis = comprovarEstudi(codEstudi);
+
+                    if (posEstudis != -1){
+                        seleccio = JOptionPane.showOptionDialog(
+                            menuEstudiVista.getFrame(),
+                            "Premeu OK per substituir-lo",
+                            "Estudi ja existent",
+                            JOptionPane.OK_CANCEL_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null,
+                            new String [] {"OK", "Cancel·lar"},
+                            "OK");
+                        if (seleccio == 0){
+                            ControladorPrincipal.getEstudis()[posEstudis] = nouEstudi ;
+                        }
+                    }else{
+                       ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()] = nouEstudi;
+                       ControladorPrincipal.setPosicioEstudis();
+                       JOptionPane.showMessageDialog(
+                               menuEstudiVista.getFrame(),
+                               "S'ha afegit el nou Estudi",
+                               "Missatge",
+                               JOptionPane.INFORMATION_MESSAGE);
                     }
-                }else{
-                   ControladorPrincipal.getEstudis()[ControladorPrincipal.getPosicioEstudis()] = nouEstudi;
-                   ControladorPrincipal.setPosicioEstudis();
-                   JOptionPane.showMessageDialog(
-                           menuEstudiVista.getFrame(),
-                           "S'ha afegit el nou Estudi",
-                           "Missatge",
-                           JOptionPane.INFORMATION_MESSAGE);
                 }
-                
                 break;
 
             case 6: //desar
